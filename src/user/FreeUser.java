@@ -1,3 +1,5 @@
+package user;
+
 public class FreeUser extends User {
     private boolean adsEnabled = true;
     private String maxQuality = "480p";

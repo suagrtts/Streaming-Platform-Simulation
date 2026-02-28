@@ -1,3 +1,5 @@
+package user;
+
 public class PremiumUser extends User {
     private String maxQuality = "4K";
     private int downloadLimit = 100; // in GB
@@ -14,7 +16,7 @@ public class PremiumUser extends User {
     public String getMaxQuality() {
         return maxQuality;
     }
-    
+
     public boolean canDownload() {
         return downloadsUsed < downloadLimit;
     }
