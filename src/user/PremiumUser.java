@@ -5,6 +5,7 @@ public class PremiumUser extends User {
     private int downloadLimit = 100; // in GB
     private int downloadsUsed = 0;
 
+    @Override
     public String getAccessLevel() {
         return "Premium Access: No ads, Max Quality: " + maxQuality + ", Download Limit: " + downloadLimit + "GB";
     }

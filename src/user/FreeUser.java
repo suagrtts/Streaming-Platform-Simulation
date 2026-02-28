@@ -4,6 +4,7 @@ public class FreeUser extends User {
     private boolean adsEnabled = true;
     private String maxQuality = "480p";
 
+    @Override
     public String getAccessLevel() {
         return "Free Access: Ads enabled, Max Quality: " + maxQuality;
     }
