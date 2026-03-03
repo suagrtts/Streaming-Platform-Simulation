@@ -1,4 +1,4 @@
-package auth;
+package platform;
 
 import java.util.regex.*;
 

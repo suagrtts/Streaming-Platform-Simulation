@@ -1,3 +1,5 @@
-public class Platform {
+package platform;
 
+public class Platform {
+    
 }

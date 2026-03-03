@@ -1,9 +1,7 @@
 package platform;
 
-import user.User;
-import admin.WatchHistory;
-
 public class Authentication {
+<<<<<<< HEAD
     private Platform platform;
     private User currentUser;
     private boolean isLoggedIn;
@@ -42,5 +40,7 @@ public class Authentication {
         return isLoggedIn;
     }
 
+=======
+>>>>>>> 6fc0daec17bba5660cc5cceb95d62e0834914aaf
     
 }
