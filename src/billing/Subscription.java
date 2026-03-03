@@ -1,49 +1,38 @@
 package billing;
 
+import java.util.*;
+
 public abstract class Subscription {
-    private String planType;
-    private double price;
-    private String billingCycle;
-    private String features;
+    private String subscriberName;
+    private double monthlyFee;
 
-    public abstract double calculateBill();
-
-    public void setPlanType(String planType) {
-        this.planType = planType;
+    public Subscription(String subscriberName, double monthlyFee) {
+        this.subscriberName = subscriberName;
+        this.monthlyFee = monthlyFee;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public String getSubscriberName() {
+        return subscriberName;
     }
 
-    public void setBillingCycle(String billingCycle) {
-        this.billingCycle = billingCycle;
+    public double getMonthlyFee() {
+        return monthlyFee;
     }
 
-    public void setFeatures(String features) {
-        this.features = features;
+    public void setMonthlyFee(double monthlyFee) {
+        this.monthlyFee = monthlyFee;
     }
 
-    public String getPlanType() {
-        return planType;
+    public abstract void displayPlanDetails();
+
+    public abstract boolean canAccessContent(String contentType);
+
+    public double getMonthlyCost() {
+        return monthlyFee;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public String getBillingCycle() {
-        return billingCycle;
-    }
-
-    public String getFeatures() {
-        return features;
-    }
-
+    @Override
     public String toString() {
-        return "Subscription Plan: " + planType + "\nPrice: $" + price + "\nBilling Cycle: " + billingCycle + "\nFeatures: " + features;
+        return "Subscription{subscriber='" + subscriberName + "', monthlyFee=$" + monthlyFee + "}";
     }
-
-
-
 }

@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-public  class Media {
-    public void displayMediaInfo(){
-        System.out.println("Media information displayed.");
-        System.out.print("hello sir");
-    }
-=======
 package content;
 
 public abstract class Media {
@@ -60,5 +53,4 @@ public abstract class Media {
     public String toString() {
         return title + " (" + releaseYear + ") | Genre: " + genre + " | Rating: " + rating;
     }
->>>>>>> origin
 }

@@ -4,12 +4,10 @@ import user.*;
 import java.util.*;
 
 public class Registration {
+    private Scanner scan = new Scanner(System.in);
     public void registerNewUser(){
-        Scanner scan = new Scanner(System.in);
         InputAuthenticator inputAuth = new InputAuthenticator();
         User user = new User();
-
-        System.out.println("Welcome to a Streaming Platform Simulation");
 
         while(true){
             try{
@@ -22,7 +20,6 @@ public class Registration {
                 break;
             }catch(InputMismatchException e){
                 System.out.println(e.getMessage());
-                scan.nextLine();
             }
         }
 
@@ -37,29 +34,28 @@ public class Registration {
                 break;
             }catch(InputMismatchException e){
                 System.out.println(e.getMessage());
-                scan.nextLine();
             }
         }
+    }
 
-        int subscriptionType = 0;
+    public void choosePlanType(){
+        User user = new User();
+
         while(true){
             try{
-                System.out.println("1. Free");
-                System.out.println("2. Premium");
-                System.out.println("Choose a subscription type: ");
-                subscriptionType = scan.nextInt();
-                if(subscriptionType == 1){
-                    user.setSubscriptionType("free");
-                    break;
-                }else if(subscriptionType == 2){
-                    user.setSubscriptionType("premium");
-                    break;
-                }else{
-                    throw new InputMismatchException("Invalid subscription type! Try again.");
+                System.out.println("Plan Types:");
+                System.out.println("Free");
+                System.out.println("Premium");
+                System.out.print("Enter a plan type (free/premium): ");
+                String type = scan.nextLine();
+    
+                if(!type.equals("free") && !type.equals("premium")){
+                    throw new InputMismatchException("Invalid plan type. Choose again!");
                 }
+                user.setSubscriptionType(type);
+                break;
             }catch(InputMismatchException e){
-                System.out.println("Invalid subscription type! Try again.");
-                scan.nextLine();
+                System.out.println(e.getMessage());
             }
         }
     }
