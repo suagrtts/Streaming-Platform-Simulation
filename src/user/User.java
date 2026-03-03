@@ -11,6 +11,9 @@ public class User implements UserInterface{
     private WatchHistory watchHistory;
     private Subscription subscription;
 
+    public User(String username){
+       this.username = username;
+    }
     public User() {
         // Default no-arg constructor
         this.subscriptionType = "free";
