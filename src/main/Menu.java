@@ -1,6 +1,6 @@
 package main;
 
-import user.*;
+import content.*;
 import platform.*;
 import java.util.*;
 
@@ -16,12 +16,13 @@ public class Menu {
 
         registration.choosePlanType();
 
-        
+        menuOptions();
         
     }
 
     public void menuOptions(){
-        System.out.println("1. Menu");
+        System.out.println("Menu");
+        System.out.println("1. Search");
         System.out.println("2. Movies");
         System.out.println("3. Series ");
         System.out.println("4. Watch History");
@@ -44,7 +45,26 @@ public class Menu {
 
         switch(option){
             case 1 -> {
+                ContentLibrary content = new ContentLibrary();
+                scan.nextLine();
 
+                System.out.print("Enter a Movie/Series title to search: ");
+                String title = scan.nextLine();
+
+                Media media = content.findByTitle(title);
+
+                if(media == null){
+                    System.out.println("No media found with the title: " + title);
+                }else{
+                    System.out.println("=== Media Found ===");
+                    System.out.println(media.getDetails());
+                    System.out.println();
+                    System.out.print("Do you want to play it? (y/n): ");
+                    String choice = scan.nextLine();
+                    if (choice.equalsIgnoreCase("y")) {
+                        media.play();
+                    }
+                }
             }
         }
     }
