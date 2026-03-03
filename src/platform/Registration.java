@@ -1,7 +1,7 @@
 package platform;
 
-import user.*;
 import java.util.*;
+import user.*;
 
 public class Registration {
     private Scanner scan = new Scanner(System.in);
@@ -14,7 +14,7 @@ public class Registration {
                 System.out.print("Enter Email: ");
                 String email = scan.nextLine();
                 if(!inputAuth.isValidEmail(email)){
-                    throw new InputMismatchException("Invalid email format! Try again.");
+                    throw new InputMismatchException("Invalid email format! Try again. Must contain '@' and a domain.");
                 }
                 user.setEmail(email);
                 break;
@@ -28,7 +28,7 @@ public class Registration {
                 System.out.print("Enter Password: ");
                 String password = scan.nextLine();
                 if(!inputAuth.isValidPassword(password)){
-                    throw new InputMismatchException("Invalid password format! Try again.");
+                    throw new InputMismatchException("Invalid password format! Try again. Must have at least 8 characters, including uppercase, lowercase, and a number.");
                 }
                 user.setPassword(password);
                 break;

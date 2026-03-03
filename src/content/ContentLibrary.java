@@ -75,6 +75,91 @@ public class ContentLibrary {
                 3,
                 61
         ));
+
+        mediaList.add(new Series(
+                "The Office", "Comedy", 8.9, 2005,
+                "A mockumentary on a group of typical office workers.",
+                9,
+                201
+        ));
+
+        mediaList.add(new Series(
+                "The Mandalorian", "Sci-Fi/Adventure", 8.8, 2019,
+                "A lone bounty hunter in the outer reaches of the galaxy protects a mysterious child.",
+                2,
+                16
+        ));
+
+        mediaList.add(new Series(
+                "The Crown", "Historical Drama", 8.7, 2016,
+                "A dramatized history of the reign of Queen Elizabeth II.",
+                4,
+                40
+        ));
+
+        mediaList.add(new Series(
+                "Friends", "Comedy/Romance", 8.9, 1994,
+                "Follows the lives of six friends in New York City.",
+                10,
+                236
+        ));
+
+        mediaList.add(new Series(
+                "The Witcher", "Fantasy/Adventure", 8.2, 2019,
+                "A monster hunter struggles to find his place in a world where people often prove more wicked than beasts.",
+                2,
+                16
+        ));
+
+        mediaList.add(new Series(
+                "Black Mirror", "Sci-Fi/Thriller", 8.8, 2011,
+                "An anthology series exploring a twisted, high-tech world where humanity's greatest innovations and darkest instincts collide.",
+                5,
+                22
+        ));             
+
+        mediaList.add(new Series(
+                "The Office", "Comedy", 8.9, 2005,
+                "A mockumentary on a group of typical office workers.",
+                9,
+                201
+        ));     
+
+        mediaList.add(new Series(
+                        "The Mandalorian", "Sci-Fi/Adventure", 8.8, 2019,
+                        "A lone bounty hunter in the outer reaches of the galaxy protects a mysterious child.",
+                        2,
+                        16
+        ));
+        
+        mediaList.add(new Series(
+                        "The Crown", "Historical Drama", 8.7, 2016,
+                        "A dramatized history of the reign of Queen Elizabeth II.",
+                        4,
+                        40
+        ));
+        
+        mediaList.add(new Series(
+                        "Friends", "Comedy/Romance", 8.9, 1994,
+                        "Follows the lives of six friends in New York City.",
+                        10,
+                        236
+        ));
+        
+        mediaList.add(new Series(
+                        "The Witcher", "Fantasy/Adventure", 8.2, 2019,
+                        "A monster hunter struggles to find his place in a world where people often prove more wicked than beasts.",
+                        2,
+                        16
+        ));
+        
+        mediaList.add(new Series(
+                        "Black Mirror", "Sci-Fi/Thriller", 8.8, 2011,
+                        "An anthology series exploring a twisted, high-tech world where humanity's greatest innovations and darkest instincts collide.",
+                        5,
+                        22
+        ));
+
     }
 
     public List<Media> getAllMedia() {
