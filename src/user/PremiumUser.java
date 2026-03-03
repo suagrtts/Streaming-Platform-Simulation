@@ -5,11 +5,13 @@ public class PremiumUser extends User {
     private final int downloadLimit = 100;
     private int downloadsUsed = 0;
 
-    public PremiumUser(String username, String password, String email) {
-        setUsername(username);
-        setPassword(password);
-        setEmail(email);
+    public PremiumUser(String username, String email, String password) {
+        super(username, email, password);
         setSubscriptionType("premium");
+    }
+
+    public PremiumUser() {
+        super("", "", ""); // Default values for username, email, and password
     }
 
     @Override

@@ -1,34 +1,65 @@
 package user;
 
+import admin.WatchHistory;
+
 public abstract class User{
     private String username;
     private String email;
     private String password;
     private String subscriptionType;
-    private String watchHistory;
+    private WatchHistory watchHistory;
+
+    public User() {
+        // Default no-arg constructor
+        this.subscriptionType = "free";
+    }
+
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.subscriptionType = "free"; // default
+    }
 
     public void setUsername(String username){
+        if(username == null || username.trim().isEmpty()){
+            throw new IllegalArgumentException("Username cannot be empty");
+        }
         this.username = username;
     }
 
     public String getUsername(){
-        return this.username;
+        return username;
     }
 
     public void setEmail(String email){
+        if(email == null || !email.contains("@")){
+            throw new IllegalArgumentException("Invalid email address");
+        }
         this.email = email;
     }
 
     public String getEmail(){
-        return this.email;
+        return email;
     }
 
     public void setPassword(String password){
+        if(password == null || password.length() < 6){
+            throw new IllegalArgumentException("Password must be at least 6 characters");
+        }
         this.password = password;
     }
 
     public String getPassword(){
-        return this.password;
+        return password;
+    }
+
+    public boolean validatePassword(String candidate) {
+        return password.equals(candidate);
+    }
+
+    public boolean validateEmail(String candidate) {
+        return email.equals(candidate);
     }
 
     public void setSubscriptionType(String subscriptionType){
@@ -36,17 +67,18 @@ public abstract class User{
     }
 
     public String getSubscriptionType(){
-        return this.subscriptionType;
+        return subscriptionType;
     }
 
-    public void setWatchHistory(String watchHistory){
+    public void setWatchHistory(WatchHistory watchHistory){
         this.watchHistory = watchHistory;
     }
 
-    public String getWatchHistory(){
-        return this.watchHistory;
+    public WatchHistory getWatchHistory(){
+        return watchHistory;
     }
 
-    public String getAccessLevel();
-    public String toString();
+    public abstract String getAccessLevel();
+    @Override
+    public abstract String toString();
 }

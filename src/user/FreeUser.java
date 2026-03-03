@@ -4,6 +4,15 @@ public class FreeUser extends User {
     private boolean adsEnabled = true;
     private String maxQuality = "480p";
 
+    public FreeUser(String username, String email, String password) {
+        super(username, email, password);
+        setSubscriptionType("free");
+    }
+
+    public FreeUser() {
+        super("", "", ""); // Default values for username, email, and password
+    }
+
     @Override
     public String getAccessLevel() {
         return "Free Access: Ads enabled, Max Quality: " + maxQuality;
