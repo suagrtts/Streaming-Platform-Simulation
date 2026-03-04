@@ -12,20 +12,23 @@ public class Recommendation {
 
         List<Media> recommended = new ArrayList<>();
 
-        if (user.getWatchHistory() == null || 
-            user.getWatchHistory().getWatchedMedia().isEmpty()) {
+        if (user == null || user.getWatchHistory() == null) {
             return recommended;
         }
 
-        Media lastWatched = user.getWatchHistory()
-                                 .getWatchedMedia()
-                                 .get(user.getWatchHistory()
-                                          .getWatchedMedia().size() - 1);
+        List<Media> watched = user.getWatchHistory().getWatchedMedia();
 
+        if (watched == null || watched.isEmpty()) {
+            return recommended;
+        }
+
+        Media lastWatched = watched.get(watched.size() - 1);
         String preferredGenre = lastWatched.getGenre();
 
         for (Media media : allMedia) {
-            if (!user.getWatchHistory().getWatchedMedia().contains(media) &&
+            if (media == null) continue;
+
+            if (!watched.contains(media) &&
                 media.getGenre().equalsIgnoreCase(preferredGenre)) {
 
                 recommended.add(media);
