@@ -10,8 +10,8 @@ public class Series extends Media {
 
     // --- Constructor ---
     public Series(String title, String genre, double rating, int releaseYear,
-                  String description, int totalSeasons, int totalEpisodes) {
-        super(title, genre, rating, releaseYear, description);
+                  String description, int totalSeasons, int totalEpisodes, boolean isPremium) {
+        super(title, genre, rating, releaseYear, description, isPremium);
         this.totalSeasons = totalSeasons;
         this.totalEpisodes = totalEpisodes;
         this.currentEpisode = 1;

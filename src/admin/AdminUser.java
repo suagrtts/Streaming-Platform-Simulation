@@ -1,5 +1,7 @@
 package admin;
 
+import content.*;
+import user.*;
 import java.util.List;
 
 public class AdminUser extends User {

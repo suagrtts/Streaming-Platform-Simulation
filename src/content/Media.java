@@ -8,14 +8,16 @@ public abstract class Media {
     private double rating;
     private int releaseYear;
     private String description;
+    private boolean isPremium;
 
     // --- Constructor ---
-    public Media(String title, String genre, double rating, int releaseYear, String description) {
+    public Media(String title, String genre, double rating, int releaseYear, String description, boolean isPremium) {
         this.title = title;
         this.genre = genre;
         this.rating = rating;
         this.releaseYear = releaseYear;
         this.description = description;
+        this.isPremium = isPremium;
     }
 
     // --- Abstract Methods (Abstraction) ---
@@ -45,6 +47,10 @@ public abstract class Media {
 
     public String getDescription() {
         return description;
+    }
+
+    public boolean getIsPremium(){
+        return isPremium;
     }
 
     // --- toString ---

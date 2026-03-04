@@ -12,7 +12,8 @@ public class ContentLibrary {
                 "A thief who steals corporate secrets through dream-sharing tech.",
                 148,
                 "Leonardo DiCaprio, Joseph Gordon-Levitt",
-                "Christopher Nolan"
+                "Christopher Nolan",
+                true
         ));
 
         mediaList.add(new Movie(
@@ -20,7 +21,8 @@ public class ContentLibrary {
                 "A hacker discovers the shocking truth about reality.",
                 136,
                 "Keanu Reeves, Laurence Fishburne",
-                "The Wachowskis"
+                "The Wachowskis",
+                true
         ));
 
         mediaList.add(new Movie(
@@ -28,7 +30,8 @@ public class ContentLibrary {
                 "A team of explorers travel through a wormhole in space to ensure humanity's survival.",
                 169,
                 "Matthew McConaughey, Anne Hathaway, Jessica Chastain",
-                "Christopher Nolan"
+                "Christopher Nolan",
+                true
         ));
 
         mediaList.add(new Movie(
@@ -36,7 +39,8 @@ public class ContentLibrary {
                 "A young girl enters a world of spirits and must work to free herself and her parents.",
                 125,
                 "Rumi Hiiragi, Miyu Irino",
-                "Hayao Miyazaki"
+                "Hayao Miyazaki",
+                false
         ));
 
         mediaList.add(new Movie(
@@ -44,7 +48,8 @@ public class ContentLibrary {
                 "Batman faces the Joker, a criminal mastermind who plunges Gotham into chaos.",
                 152,
                 "Christian Bale, Heath Ledger, Aaron Eckhart",
-                "Christopher Nolan"
+                "Christopher Nolan",
+                true
         ));
 
         // --- Series ---
@@ -52,113 +57,81 @@ public class ContentLibrary {
                 "Breaking Bad", "Crime/Drama", 9.5, 2008,
                 "A chemistry teacher turns to making methamphetamine after a cancer diagnosis.",
                 5,
-                62
+                62,
+                true
         ));
 
         mediaList.add(new Series(
                 "Stranger Things", "Sci-Fi/Horror", 8.7, 2016,
                 "A group of kids encounter supernatural forces and secret government experiments in their town.",
                 4,
-                34
+                34,
+                true
         ));
 
         mediaList.add(new Series(
                 "Game of Thrones", "Fantasy/Drama", 9.2, 2011,
                 "Noble families vie for control of the Iron Throne in the land of Westeros.",
                 8,
-                73
+                73,
+                true
         ));
 
         mediaList.add(new Series(
                 "Avatar: The Last Airbender", "Animation/Adventure", 9.3, 2005,
                 "A young Avatar must master all four elements and save the world from the Fire Nation.",
                 3,
-                61
+                61,
+                false
         ));
 
         mediaList.add(new Series(
                 "The Office", "Comedy", 8.9, 2005,
                 "A mockumentary on a group of typical office workers.",
                 9,
-                201
+                201,
+                false
         ));
 
         mediaList.add(new Series(
                 "The Mandalorian", "Sci-Fi/Adventure", 8.8, 2019,
                 "A lone bounty hunter in the outer reaches of the galaxy protects a mysterious child.",
                 2,
-                16
+                16,
+                true
         ));
 
         mediaList.add(new Series(
                 "The Crown", "Historical Drama", 8.7, 2016,
                 "A dramatized history of the reign of Queen Elizabeth II.",
                 4,
-                40
+                40,
+                true
         ));
 
         mediaList.add(new Series(
                 "Friends", "Comedy/Romance", 8.9, 1994,
                 "Follows the lives of six friends in New York City.",
                 10,
-                236
+                236,
+                false
         ));
 
         mediaList.add(new Series(
                 "The Witcher", "Fantasy/Adventure", 8.2, 2019,
                 "A monster hunter struggles to find his place in a world where people often prove more wicked than beasts.",
                 2,
-                16
+                16,
+                true
         ));
 
         mediaList.add(new Series(
                 "Black Mirror", "Sci-Fi/Thriller", 8.8, 2011,
                 "An anthology series exploring a twisted, high-tech world where humanity's greatest innovations and darkest instincts collide.",
                 5,
-                22
+                22,
+                true
         ));             
-
-        mediaList.add(new Series(
-                "The Office", "Comedy", 8.9, 2005,
-                "A mockumentary on a group of typical office workers.",
-                9,
-                201
-        ));     
-
-        mediaList.add(new Series(
-                        "The Mandalorian", "Sci-Fi/Adventure", 8.8, 2019,
-                        "A lone bounty hunter in the outer reaches of the galaxy protects a mysterious child.",
-                        2,
-                        16
-        ));
-        
-        mediaList.add(new Series(
-                        "The Crown", "Historical Drama", 8.7, 2016,
-                        "A dramatized history of the reign of Queen Elizabeth II.",
-                        4,
-                        40
-        ));
-        
-        mediaList.add(new Series(
-                        "Friends", "Comedy/Romance", 8.9, 1994,
-                        "Follows the lives of six friends in New York City.",
-                        10,
-                        236
-        ));
-        
-        mediaList.add(new Series(
-                        "The Witcher", "Fantasy/Adventure", 8.2, 2019,
-                        "A monster hunter struggles to find his place in a world where people often prove more wicked than beasts.",
-                        2,
-                        16
-        ));
-        
-        mediaList.add(new Series(
-                "Black Mirror", "Sci-Fi/Thriller", 8.8, 2011,
-                "An anthology series exploring a twisted, high-tech world where humanity's greatest innovations and darkest instincts collide.",
-                5,
-                22
-        ));
 
         // --- Additional Movies (15 more to reach 20 total) ---
         mediaList.add(new Movie(
@@ -166,7 +139,8 @@ public class ContentLibrary {
                 "The lives of two mobsters, a boxer, a gangster and his wife intertwine in four tales of violence.",
                 154,
                 "John Travolta, Uma Thurman, Samuel L. Jackson",
-                "Quentin Tarantino"
+                "Quentin Tarantino",
+                true
         ));
 
         mediaList.add(new Movie(
@@ -174,7 +148,8 @@ public class ContentLibrary {
                 "The presidencies of Kennedy and Johnson unfold from the perspective of an Alabama man.",
                 142,
                 "Tom Hanks, Gary Sinise, Sally Field",
-                "Robert Zemeckis"
+                "Robert Zemeckis",
+                false
         ));
 
         mediaList.add(new Movie(
@@ -182,7 +157,8 @@ public class ContentLibrary {
                 "Two imprisoned men bond over a number of years to form a friendship.",
                 142,
                 "Tim Robbins, Morgan Freeman",
-                "Frank Darabont"
+                "Frank Darabont",
+                true
         ));
 
         mediaList.add(new Movie(
@@ -190,7 +166,8 @@ public class ContentLibrary {
                 "The aging patriarch of an organized crime dynasty transfers control to his reluctant youngest son.",
                 175,
                 "Marlon Brando, Al Pacino, James Caan",
-                "Francis Ford Coppola"
+                "Francis Ford Coppola",
+                true
         ));
 
         mediaList.add(new Movie(
@@ -198,7 +175,8 @@ public class ContentLibrary {
                 "The continuation of the Corleone saga as Michael consolidates his power.",
                 202,
                 "Al Pacino, Robert Duvall, Diane Keaton",
-                "Francis Ford Coppola"
+                "Francis Ford Coppola",
+                true
         ));
 
         mediaList.add(new Movie(
@@ -206,7 +184,8 @@ public class ContentLibrary {
                 "A former Roman General sets out to exact vengeance against the Emperor who betrayed him.",
                 155,
                 "Russell Crowe, Joaquin Phoenix, Lucilla Romagna",
-                "Ridley Scott"
+                "Ridley Scott",
+                false
         ));
 
         mediaList.add(new Movie(
@@ -214,7 +193,8 @@ public class ContentLibrary {
                 "A paraplegic Marine dispatched to the moon Pandora on a unique mission becomes torn between following his orders.",
                 162,
                 "Sam Worthington, Zoe Saldana, Sigourney Weaver",
-                "James Cameron"
+                "James Cameron",
+                true
         ));
 
         mediaList.add(new Movie(
@@ -222,7 +202,8 @@ public class ContentLibrary {
                 "A seventeen-year-old aristocrat falls in love with a kind but poor artist aboard the luxurious, ill-fated R.M.S. Titanic.",
                 194,
                 "Leonardo DiCaprio, Kate Winslet",
-                "James Cameron"
+                "James Cameron",
+                false
         ));
 
         mediaList.add(new Movie(
@@ -230,7 +211,8 @@ public class ContentLibrary {
                 "Earth's mightiest heroes must come together and learn to fight as a team.",
                 143,
                 "Robert Downey Jr., Chris Evans, Chris Hemsworth",
-                "Joss Whedon"
+                "Joss Whedon",
+                true
         ));
 
         mediaList.add(new Movie(
@@ -238,7 +220,8 @@ public class ContentLibrary {
                 "After the devastating events, the Avengers assemble once more to reverse Thanos' actions.",
                 181,
                 "Robert Downey Jr., Chris Evans, Mark Ruffalo",
-                "Anthony Russo, Joe Russo"
+                "Anthony Russo, Joe Russo",
+                true
         ));
 
         mediaList.add(new Movie(
@@ -246,7 +229,8 @@ public class ContentLibrary {
                 "A struggling comedian finds himself adrift in society searching for his place.",
                 122,
                 "Joaquin Phoenix, Robert De Niro, Zazie Beetz",
-                "Todd Phillips"
+                "Todd Phillips",
+                true
         ));
 
         mediaList.add(new Movie(
@@ -254,7 +238,8 @@ public class ContentLibrary {
                 "Two detectives hunt a serial killer who uses the seven deadly sins as his motives.",
                 127,
                 "Brad Pitt, Morgan Freeman, Kevin Spacey",
-                "David Fincher"
+                "David Fincher",
+                true
         ));
 
         mediaList.add(new Movie(
@@ -262,7 +247,8 @@ public class ContentLibrary {
                 "An insomniac office worker and a devil-may-care soapmaker form an underground fight club.",
                 139,
                 "Brad Pitt, Edward Norton, Helena Bonham Carter",
-                "David Fincher"
+                "David Fincher",
+                true
         ));
 
         mediaList.add(new Movie(
@@ -270,7 +256,8 @@ public class ContentLibrary {
                 "A young FBI cadet must receive the help of an incarcerated cannibal killer.",
                 118,
                 "Jodie Foster, Scott Glenn, Anthony Hopkins",
-                "Jonathan Demme"
+                "Jonathan Demme",
+                true
         ));
 
         mediaList.add(new Movie(
@@ -278,7 +265,8 @@ public class ContentLibrary {
                 "Greed and class discrimination threaten the newly formed symbiotic relationship.",
                 132,
                 "Song Kang-ho, Lee Sun-kyun, Cho Yeo-jeong",
-                "Bong Joon-ho"
+                "Bong Joon-ho",
+                true
         ));
 
         mediaList.add(new Movie(
@@ -286,7 +274,8 @@ public class ContentLibrary {
                 "An undercover cop and a mole in the police attempt to identify each other.",
                 151,
                 "Leonardo DiCaprio, Matt Damon, Jack Nicholson",
-                "Martin Scorsese"
+                "Martin Scorsese",
+                true
         ));
 
         // --- Additional Series (5 more to reach 15 total) ---
@@ -294,35 +283,40 @@ public class ContentLibrary {
                 "True Detective", "Crime/Mystery", 8.9, 2014,
                 "Detectives pursue a ruthless killer in the rust belt.",
                 4,
-                24
+                24,
+                true
         ));
 
         mediaList.add(new Series(
                 "Westworld", "Sci-Fi/Drama", 8.5, 2016,
                 "At a futuristic theme park populated by android hosts, wealthy guests live out their fantasies.",
                 4,
-                36
+                36,
+                false
         ));
 
         mediaList.add(new Series(
                 "Chernobyl", "Historical/Drama", 9.3, 2019,
                 "A dramatization of the disaster at the Chernobyl nuclear power station.",
                 1,
-                5
+                5,
+                false
         ));
 
         mediaList.add(new Series(
                 "Mindhunter", "Crime/Drama", 8.6, 2017,
                 "FBI agents explore criminal psychology to catch serial killers.",
                 2,
-                19
+                19,
+                true
         ));
 
         mediaList.add(new Series(
                 "The Boys", "Action/Comedy", 8.7, 2019,
                 "A group of vigilantes set out to take down corrupt superheroes.",
                 4,
-                50
+                50,
+                true
         ));
 
     }
@@ -371,5 +365,29 @@ public class ContentLibrary {
             }
         }
         return null;
+    }
+
+    public List<String> getAllFreeMovieTitles(){
+        List<String> titles = new ArrayList<>();
+
+        for(Media m : mediaList){
+            if(m instanceof Movie){
+                if(!m.getIsPremium())
+                titles.add(m.getTitle());
+            }
+        }
+        return titles;
+    }
+
+    public List<String> getAllFreeSeriesTitles(){
+        List<String> titles = new ArrayList<>();
+
+        for(Media m : mediaList){
+            if(m instanceof Series){
+                if(!m.getIsPremium())
+                titles.add(m.getTitle());
+            }
+        }
+        return titles;
     }
 }

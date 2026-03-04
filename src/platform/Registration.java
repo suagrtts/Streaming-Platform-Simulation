@@ -1,19 +1,14 @@
 package platform;
 
 import user.User;
-import user.FreeUser;
-import user.PremiumUser;
-import billing.FreeSubscription;
-import billing.PremiumSubscription;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.*;
 
 public class Registration {
     private Scanner scan = new Scanner(System.in);
+    private User user = new User();
     public void registerNewUser(){
         InputAuthenticator inputAuth = new InputAuthenticator();
-        User user = new User();
 
         while(true){
             try{
@@ -45,13 +40,8 @@ public class Registration {
     }
 
     public void choosePlanType(){
-        User user = new User();
-
         while(true){
             try{
-                System.out.println("Plan Types:");
-                System.out.println("Free");
-                System.out.println("Premium");
                 System.out.print("Enter a plan type (free/premium): ");
                 String type = scan.nextLine();
     
@@ -64,5 +54,16 @@ public class Registration {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    public void setUsername(){
+        System.out.print("Please enter a username: ");
+        String username = scan.nextLine();
+
+        user.setUsername(username);
+    }
+
+    public User getUser(){
+        return user;
     }
 }

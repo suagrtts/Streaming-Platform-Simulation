@@ -1,7 +1,5 @@
 package billing;
 
-import java.util.*;
-
 public abstract class Subscription {
 
     private String subscriberName;

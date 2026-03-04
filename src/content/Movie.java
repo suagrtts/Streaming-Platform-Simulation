@@ -10,8 +10,8 @@ public class Movie extends Media {
 
     // --- Constructor ---
     public Movie(String title, String genre, double rating, int releaseYear,
-                 String description, int duration, String cast, String director) {
-        super(title, genre, rating, releaseYear, description);
+                 String description, int duration, String cast, String director, boolean isPremium) {
+        super(title, genre, rating, releaseYear, description, isPremium);
         this.duration = duration;
         this.cast = cast;
         this.director = director;
