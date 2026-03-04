@@ -1,19 +1,18 @@
 package main;
 
-import content.*;
-import platform.*;
-import billing.*;
-import user.*;
 import admin.*;
-
+import billing.*;
+import content.*;
 import java.util.*;
+import platform.*;
+import user.*;
 
 public class Menu {
-    private Scanner scan = new Scanner(System.in);
+    private final Scanner scan = new Scanner(System.in);
     private User user = new User();
-    private ContentLibrary library = new ContentLibrary();
-    private Platform platform = new Platform();
-    private WatchHistory history = new WatchHistory();
+    private final ContentLibrary library = new ContentLibrary();
+    private final Platform platform = new Platform();
+    private final WatchHistory history = new WatchHistory();
 
     public void showMenu(){
         Registration registration = new Registration();
@@ -142,10 +141,10 @@ public class Menu {
         System.out.println("0. Exit");
         
         while(true){
-            String title = "";
             try{
                 System.out.print("Choose a movie title: ");
                 int choice = scan.nextInt();
+                scan.nextLine(); // Consume the newline character
 
                 if(choice == 0){
                     menuOptions();
@@ -156,6 +155,7 @@ public class Menu {
                     continue;
                 }
 
+                String title;
                 if(platform.getCurrentSubscription().equals("premium")){
                     title = allMovieTitles.get(choice - 1);
                 }else{
@@ -191,10 +191,10 @@ public class Menu {
         System.out.println("0. Exit");
 
         while(true){
-            String title = "";
             try{
                 System.out.print("Choose a series title: ");
                 int choice = scan.nextInt();
+                scan.nextLine(); // Consume the newline character
 
                 if(choice == 0){
                     menuOptions();
@@ -206,6 +206,7 @@ public class Menu {
                     continue;
                 }
 
+                String title;
                 if(platform.getCurrentSubscription().equals("premium")){
                     title = allSeriesTitles.get(choice - 1);
                 }else{
@@ -225,12 +226,11 @@ public class Menu {
         List<String> historyTitles = history.getHistoryList();
 
         System.out.println("Your Watch History");
-        int i = 0;
-        for(i = 0; i < historyTitles.size(); i++){
+        for(int i = 0; i < historyTitles.size(); i++){
             System.out.println((i + 1) + ". " + historyTitles.get(i));
         }
 
-        System.out.println((i + 1) + ". Clear History List");
+        System.out.println((historyTitles.size() + 1) + ". Clear History List");
         System.out.println("0. Exit");
 
         while(true){
@@ -238,12 +238,21 @@ public class Menu {
                 System.out.print("Enter a number: ");
                 int choice = scan.nextInt();
 
-                if(choice == 0)
+                if(choice == 0) {
                     menuOptions();
-                if(choice == historyTitles.size() - 1);
+                    return;
+                }
+                if(choice == historyTitles.size() + 1) {
                     history.clearHistory();
+                    return;
+                }
 
-                String title = historyTitles.get(i);
+                if(choice < 1 || choice > historyTitles.size()) {
+                    System.out.println("Invalid option. Choose again!");
+                    continue;
+                }
+
+                String title = historyTitles.get(choice - 1);
                 search(title);
                 break;
             }catch(InputMismatchException e){
