@@ -2,7 +2,7 @@ package billing;
 
 public class FreeSubscription extends Subscription {
 
-    private static final int MAX_WATCH_HOURS = 10;
+    private static final int MAX_WATCH_HOURS = 2;
     private static final boolean ADS_ENABLED = true;
     private static final int MAX_QUALITY = 480;
 

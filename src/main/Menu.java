@@ -240,7 +240,7 @@ public class Menu {
             System.out.println((i + 1) + ". " + historyTitles.get(i));
         }
 
-        System.out.println("-. Clear History List");
+        System.out.println("- Clear History List");
         System.out.println("0. Exit");
 
         while(true){
@@ -250,7 +250,7 @@ public class Menu {
 
                 if(choice == 0)
                     menuOptions();
-                if(choice == historyTitles.size() - 1)
+                if(choice == ')
                     history.clearHistory();
 
                 String title = historyTitles.get(i);
