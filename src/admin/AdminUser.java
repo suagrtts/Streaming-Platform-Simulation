@@ -1,6 +1,8 @@
 package admin;
 
 import java.util.List;
+import content.Media;
+import user.User;
 
 public class AdminUser extends User {
 
@@ -18,18 +20,25 @@ public class AdminUser extends User {
     }
 
     public void removeMedia(List<Media> mediaList, String title) {
-        if (title != null) {
-            boolean removed = mediaList.removeIf(
-                media -> media.getTitle().equalsIgnoreCase(title)
-            );
-
-            if (removed) {
-                System.out.println("Media removed: " + title);
-            } else {
-                System.out.println("Media not found: " + title);
-            }
-        } else {
+        if (title == null) {
             System.out.println("Title cannot be null.");
+            return;
+        }
+
+        boolean found = false;
+
+        for (int i = 0; i < mediaList.size(); i++) {
+            if (mediaList.get(i).getTitle().equalsIgnoreCase(title)) {
+                mediaList.remove(i);
+                found = true;
+                break; 
+            }
+        }
+
+        if (found) {
+            System.out.println("Media removed: " + title);
+        } else {
+            System.out.println("Media not found: " + title);
         }
     }
 
@@ -40,5 +49,10 @@ public class AdminUser extends User {
         } else {
             System.out.println("Invalid media or title.");
         }
+    }
+
+    @Override
+    public String getAccessLevel() {
+        return "Admin Access: Full control over media management.";
     }
 }
