@@ -11,8 +11,8 @@ import java.util.List;
  */
 public class WatchHistory {
     private String userName;
-    private List<String> historyList;
-    private List<Media> watchedMedia;
+    private final List<String> historyList;
+    private final List<Media> watchedMedia;
 
     public WatchHistory() {
         this.historyList = new ArrayList<>();
