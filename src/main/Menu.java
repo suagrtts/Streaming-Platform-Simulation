@@ -1,327 +1,299 @@
 package main;
 
-import admin.*;
-import billing.*;
-import content.*;
-import java.util.*;
-import platform.*;
-import user.*;
+import admin.Recommendation;
+import admin.WatchHistory;
+import billing.FreeSubscription;
+import billing.PremiumSubscription;
+import billing.Subscription;
+import content.ContentLibrary;
+import content.Media;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
+import platform.Authentication;
+import platform.Platform;
+import platform.Registration;
+import user.User;
 
 public class Menu {
     private final Scanner scan = new Scanner(System.in);
-    private User user = new User();
+    private User user;
     private final ContentLibrary library = new ContentLibrary();
     private final Platform platform = new Platform();
     private final WatchHistory history = new WatchHistory();
 
-    public void showMenu(){
-        Registration registration = new Registration();
-
+    public void showMenu() {
         displayWelcome();
 
-        System.out.println("Please register a new user");
-        registration.registerNewUser();
-        registration.setUsername();
-        this.user = registration.getUser();
-        // attach shared watch history to user so admin.Recommendation can use it
-        this.user.setWatchHistory(history);
-        displayPlanTypes(user.getUsername());
+        Authentication auth = new Authentication(platform);
 
-        registration.choosePlanType();
-        
+        System.out.println("1. Register");
+        System.out.println("2. Login");
+        System.out.print("Choose: ");
+        String choice = scan.nextLine().trim();
+
+        if (choice.equals("1")) {
+            Registration registration = new Registration();
+
+            System.out.println("Please register a new user");
+            registration.registerNewUser();
+            registration.setUsername();
+            displayPlanTypes();
+            registration.choosePlanType();
+
+            this.user = registration.getUser();
+            this.user.setWatchHistory(history);
+            platform.addUser(this.user);
+
+        } else if (choice.equals("2")) {
+            System.out.print("Username: ");
+            String username = scan.nextLine();
+            System.out.print("Password: ");
+            String password = scan.nextLine();
+
+            User logged = auth.authenticate(username, password);
+            if (logged == null) {
+                System.out.println("Login failed. Exiting.");
+                return;
+            }
+            this.user = logged;
+            this.user.setWatchHistory(history);
+
+        } else {
+            System.out.println("Invalid choice. Exiting.");
+            return;
+        }
+
         platform.setCurrentUser(user.getUsername());
         platform.setCurrentSubsription(user.getSubscriptionType());
 
         menuOptions();
     }
 
-    public void menuOptions(){
-        System.out.println("Menu");
-        System.out.println("1. Search");
-        System.out.println("2. Movies");
-        System.out.println("3. Series");
-        System.out.println("4. Recommendation");
-        System.out.println("5. Watch History");
-        System.out.println("6. Log out");
+    public void menuOptions() {
+        while (true) {
+            System.out.println("\nMenu");
+            System.out.println("1. Search");
+            System.out.println("2. Movies");
+            System.out.println("3. Series");
+            System.out.println("4. Recommendation");
+            System.out.println("5. Watch History");
+            System.out.println("6. Log out");
 
-        int option = 0;
-        while(true){
-            try{
+            int option;
+            try {
                 System.out.print("Choose an option: ");
                 option = scan.nextInt();
-
-                if(option <= 0){
-                    throw new InputMismatchException("Invalid option. Try again!");
+                scan.nextLine(); // clear buffer
+                if (option <= 0 || option > 6) {
+                    System.out.println("Invalid option. Try again!");
+                    continue;
                 }
-                break;
-            }catch(InputMismatchException e){
-                System.out.println(e.getMessage());
-            }
-        }
-
-        switch(option){
-            case 1 -> {
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid option. Try again!");
                 scan.nextLine();
-                System.out.print("Enter a Movie/Series title to search: ");
-                String title = scan.nextLine();
-                search(title);
+                continue;
             }
-            case 2 -> {
-                displayMovieTitles();
+
+            switch (option) {
+                case 1 -> {
+                    System.out.print("Enter a Movie/Series title to search: ");
+                    String title = scan.nextLine();
+                    search(title);
+                }
+                case 2 -> displayMovieTitles();
+                case 3 -> displaySeriesTitles();
+                case 4 -> displayRecommendation();
+                case 5 -> displayWatchHistory();
+                case 6 -> {
+                    System.out.println("Logged out. Goodbye!");
+                    return;
+                }
             }
-            case 3 -> {
-                displaySeriesTitles();
-            }
-            case 4 -> {
-                displayRecommendation();
-            }
-            case 5 -> {
-                displayWatchHistory();
-            }
-            case 6 ->{
-                break;
-            }
+
         }
     }
 
-    public void displayPlanTypes(String username){
-        Subscription freeSubs = new FreeSubscription(user.getUsername());
-        Subscription premSubs = new PremiumSubscription(user.getUsername(), "Premium");
+    public void displayPlanTypes() {
+        Subscription freeSubs = new FreeSubscription(user != null ? user.getUsername() : "user");
+        Subscription premSubs = new PremiumSubscription(user != null ? user.getUsername() : "user", "monthly");
         System.out.println("Choose the plan that's right for you!");
-
         freeSubs.displayPlanDetails();
         premSubs.displayPlanDetails();
     }
 
-    public void search(String title){
+    public void search(String title) {
         Media media = library.findByTitle(title);
 
-        if(media == null){
+        if (media == null) {
             System.out.println("No media found with the title: " + title);
-            menuOptions();
             return;
         }
 
-        // Check if user has access to this content
         boolean isFreeUser = platform.getCurrentSubscription().equals("free");
         if (isFreeUser && media.getIsPremium()) {
             System.out.println("╔════════════════════════════════════════╗");
             System.out.println("║  ⛔ PREMIUM CONTENT ACCESS DENIED    ║");
-            System.out.println("║  This content is only for Premium     ║");
-            System.out.println("║  members. Upgrade your plan to watch. ║");
+            System.out.println("║  Upgrade your plan to watch this.     ║");
             System.out.println("╚════════════════════════════════════════╝");
-            System.out.println();
-            menuOptions();
             return;
         }
 
         System.out.println("=== Media Found ===");
         System.out.println(media.getDetails());
-        
-        // Display quality restriction info
         String quality = isFreeUser ? "480p" : "4K";
         System.out.println("Available Quality: " + quality);
-        System.out.println();
-        
+
         System.out.print("Do you want to play it? (y/n): ");
-        String choice = scan.nextLine();
-        
-        if (choice.equalsIgnoreCase("y")) {
+        String playChoice = scan.nextLine();
+
+        if (playChoice.equalsIgnoreCase("y")) {
             history.addRecord(title);
             history.addWatchedMedia(media);
-            
-            // Pass subscription type to determine ads
-            boolean showAds = isFreeUser;
-            playMedia(media, showAds);
-            
-            while(true){
-                try{
-                    System.out.println("Enter 0 to exit: ");
-                    int exit = scan.nextInt();
-
-                    if(exit != 0){
-                        throw new InputMismatchException("Please enter 0 to exit."); 
-                    }
-                    menuOptions();
-                    break;
-                }catch(InputMismatchException e){
-                    System.out.println(e.getMessage());
-                    scan.nextLine();
-                }
-            }
-        }else{
-            menuOptions();
+            playMedia(media, isFreeUser);
         }
     }
 
     private void playMedia(Media media, boolean showAds) {
-        if (showAds) {
-            displayAd();
-        }
+        if (showAds) displayAd();
         media.play();
     }
-    
+
     private void displayAd() {
         System.out.println();
         System.out.println("╔═══════════════════════════════════════╗");
         System.out.println("║          📺 ADVERTISEMENT 📺          ║");
         System.out.println("╠═══════════════════════════════════════╣");
-        System.out.println("║  Upgrade to PREMIUM and enjoy          ║");
-        System.out.println("║  ad-free streaming in 4K quality!      ║");
-        System.out.println("║                                       ║");
+        System.out.println("║  Upgrade to PREMIUM — ad-free in 4K! ║");
         System.out.println("║  Only $12.99/month                    ║");
         System.out.println("╚═══════════════════════════════════════╝");
         System.out.println("  (Skipping ad in 3 seconds...)");
         System.out.println();
     }
 
-    public void displayMovieTitles(){
-        // Get titles based on subscription type
+    public void displayMovieTitles() {
         String subscription = platform.getCurrentSubscription();
         List<String> availableTitles = library.getAccessibleMovieTitles(subscription);
 
         System.out.println("=== All Movies Available to You ===");
-        
-        if(availableTitles.isEmpty()){
+        if (availableTitles.isEmpty()) {
             System.out.println("No movies available for your subscription tier.");
-            menuOptions();
             return;
         }
 
-        for(int i = 0; i < availableTitles.size(); i++){
+        for (int i = 0; i < availableTitles.size(); i++)
             System.out.println((i + 1) + ". " + availableTitles.get(i));
-        }
 
-        if(subscription.equals("free")){
-            System.out.println("\n💡 Tip: Upgrade to Premium to access exclusive content!");
-        }
-        
-        System.out.println("0. Exit");
-        
-        while(true){
-            try{
-                System.out.print("Choose a movie title: ");
-                int choice = scan.nextInt();
+        if (subscription.equals("free"))
+            System.out.println("\n💡 Tip: Upgrade to Premium for exclusive content!");
+
+        System.out.println("0. Back");
+
+        while (true) {
+            try {
+                System.out.print("Choose a movie: ");
+                int movieChoice = scan.nextInt();
                 scan.nextLine();
 
-                if(choice == 0){
-                    menuOptions();
-                    return;
-                }
-                
-                if (choice < 1 || choice > availableTitles.size()) {
+                if (movieChoice == 0) return;
+                if (movieChoice < 1 || movieChoice > availableTitles.size()) {
                     System.out.println("Invalid option. Choose again!");
                     continue;
                 }
-
-                String title = availableTitles.get(choice - 1);
-                search(title);
+                search(availableTitles.get(movieChoice - 1));
                 break;
-            }catch(InputMismatchException e){
+            } catch (InputMismatchException e) {
                 System.out.println("Invalid option. Choose again!");
                 scan.nextLine();
             }
         }
-            
     }
 
-    public void displaySeriesTitles(){
-        // Get titles based on subscription type
+    public void displaySeriesTitles() {
         String subscription = platform.getCurrentSubscription();
         List<String> availableTitles = library.getAccessibleSeriesTitles(subscription);
 
         System.out.println("=== All Series Available to You ===");
-        
-        if(availableTitles.isEmpty()){
+        if (availableTitles.isEmpty()) {
             System.out.println("No series available for your subscription tier.");
-            menuOptions();
             return;
         }
 
-        for(int i = 0; i < availableTitles.size(); i++){
+        for (int i = 0; i < availableTitles.size(); i++)
             System.out.println((i + 1) + ". " + availableTitles.get(i));
-        }
 
-        if(subscription.equals("free")){
-            System.out.println("\n💡 Tip: Upgrade to Premium to access exclusive content!");
-        }
+        if (subscription.equals("free"))
+            System.out.println("\n💡 Tip: Upgrade to Premium for exclusive content!");
 
-        System.out.println("0. Exit");
+        System.out.println("0. Back");
 
-        while(true){
-            try{
-                System.out.print("Choose a series title: ");
-                int choice = scan.nextInt();
+        while (true) {
+            try {
+                System.out.print("Choose a series: ");
+                int seriesChoice = scan.nextInt();
                 scan.nextLine();
 
-                if(choice == 0){
-                    menuOptions();
-                    return;
-                }
-
-                if (choice < 1 || choice > availableTitles.size()) {
+                if (seriesChoice == 0) return;
+                if (seriesChoice < 1 || seriesChoice > availableTitles.size()) {
                     System.out.println("Invalid option. Choose again!");
                     continue;
                 }
-
-                String title = availableTitles.get(choice - 1);
-                search(title);
+                search(availableTitles.get(seriesChoice - 1));
                 break;
-            }catch(InputMismatchException e){
+            } catch (InputMismatchException e) {
                 System.out.println("Invalid option. Try Again!");
                 scan.nextLine();
             }
         }
     }
 
-    public void displayWatchHistory(){
+    public void displayWatchHistory() {
         List<String> historyTitles = history.getHistoryList();
 
         System.out.println("Your Watch History");
-        for(int i = 0; i < historyTitles.size(); i++){
-            System.out.println((i + 1) + ". " + historyTitles.get(i));
+        if (historyTitles.isEmpty()) {
+            System.out.println("Nothing watched yet.");
+            return;
         }
 
-        System.out.println((historyTitles.size() + 1) + ". Clear History List");
-        System.out.println("0. Exit");
+        for (int i = 0; i < historyTitles.size(); i++)
+            System.out.println((i + 1) + ". " + historyTitles.get(i));
 
-        while(true){
-            try{
+        System.out.println((historyTitles.size() + 1) + ". Clear History");
+        System.out.println("0. Back");
+
+        while (true) {
+            try {
                 System.out.print("Enter a number: ");
-                int choice = scan.nextInt();
+                int histChoice = scan.nextInt();
+                scan.nextLine();
 
-                if(choice == 0) {
-                    menuOptions();
-                    return;
-                }
-                if(choice == historyTitles.size() + 1) {
+                if (histChoice == 0) return;
+                if (histChoice == historyTitles.size() + 1) {
                     history.clearHistory();
+                    System.out.println("History cleared.");
                     return;
                 }
-
-                if(choice < 1 || choice > historyTitles.size()) {
+                if (histChoice < 1 || histChoice > historyTitles.size()) {
                     System.out.println("Invalid option. Choose again!");
                     continue;
                 }
-
-                String title = historyTitles.get(choice - 1);
-                search(title);
+                search(historyTitles.get(histChoice - 1));
                 break;
-            }catch(InputMismatchException e){
+            } catch (InputMismatchException e) {
                 System.out.println("Invalid Choice. Try again!");
                 scan.nextLine();
             }
         }
     }
 
-    public void displayRecommendation(){
-        Recommendation recommendation = new Recommendation();
+    public void displayRecommendation() {
         List<Media> allMedia = platform.getContentLibrary().getAllMedia();
-        List<Media> recommended = recommendation.recommendMedia(user, allMedia);
+        // Bug #5 fixed: call static method directly, no instantiation
+        List<Media> recommended = Recommendation.recommendMedia(user, allMedia);
 
         if (recommended == null || recommended.isEmpty()) {
             System.out.println("No recommendations yet. Watch something first!");
-            menuOptions();
             return;
         }
 
@@ -330,25 +302,20 @@ public class Menu {
             Media m = recommended.get(i);
             System.out.println((i + 1) + ". " + m.getTitle() + " (" + m.getGenre() + ")");
         }
-        System.out.println("0. Exit");
+        System.out.println("0. Back");
 
         while (true) {
             try {
                 System.out.print("Choose a title to play: ");
-                int choice = scan.nextInt();
+                int recChoice = scan.nextInt();
+                scan.nextLine();
 
-                if (choice == 0) {
-                    menuOptions();
-                    return;
-                }
-
-                if (choice < 1 || choice > recommended.size()) {
+                if (recChoice == 0) return;
+                if (recChoice < 1 || recChoice > recommended.size()) {
                     System.out.println("Invalid option. Try again!");
                     continue;
                 }
-
-                Media selected = recommended.get(choice - 1);
-                search(selected.getTitle());
+                search(recommended.get(recChoice - 1).getTitle());
                 break;
             } catch (InputMismatchException e) {
                 System.out.println("Invalid option. Try again!");
@@ -367,22 +334,9 @@ public class Menu {
         System.out.println("║   ██████╔╝░░░██║░░░██║░░██║███████╗██║░░██║██║░╚═╝░██║     ║");
         System.out.println("║   ╚═════╝░░░░╚═╝░░░╚═╝░░╚═╝╚══════╝╚═╝░░╚═╝╚═╝░░░░╚═╝     ║");
         System.out.println("║                                                              ║");
-        System.out.println("║          ██████╗░██╗░░░░░░█████╗░██╗░░░██╗                 ║");
-        System.out.println("║          ██╔══██╗██║░░░░░██╔══██╗╚██╗░██╔╝                 ║");
-        System.out.println("║          ██████╔╝██║░░░░░███████║░╚████╔╝░                 ║");
-        System.out.println("║          ██╔═══╝░██║░░░░░██╔══██║░░╚██╔╝░░                 ║");
-        System.out.println("║          ██║░░░░░███████╗██║░░██║░░░██║░░░                 ║");
-        System.out.println("║          ╚═╝░░░░░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░                 ║");
-        System.out.println("║                                                              ║");
-        System.out.println("║            Your Entertainment, Anytime, Anywhere          ║");
+        System.out.println("║            Your Entertainment, Anytime, Anywhere            ║");
         System.out.println("║                                                              ║");
         System.out.println("╚══════════════════════════════════════════════════════════════╝");
-        System.out.println();
-        System.out.println("  [ Movies ]   [ Series ]   [ Live TV ]   [ My List ]");
-        System.out.println();
-        System.out.println("──────────────────────────────────────────────────────────────");
-        System.out.println("               Please register to continue.");
-        System.out.println("──────────────────────────────────────────────────────────────");
         System.out.println();
     }
 }
