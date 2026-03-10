@@ -3,67 +3,70 @@ package platform;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import user.User;
+import user.FreeUser;
+import user.PremiumUser;
 
 public class Registration {
     private final Scanner scan = new Scanner(System.in);
-    private final User user = new User();
-    public void registerNewUser(){
+    private User user;
+    private String email;
+    private String password;
+    private String username;
+
+    public void registerNewUser() {
         InputAuthenticator inputAuth = new InputAuthenticator();
 
-        while(true){
-            try{
+        while (true) {
+            try {
                 System.out.print("Enter Email: ");
-                String email = scan.nextLine();
-                if(!inputAuth.isValidEmail(email)){
-                    throw new InputMismatchException("Invalid email format! Try again. Must contain '@' and a domain.");
-                }
-                user.setEmail(email);
+                String e = scan.nextLine();
+                if (!inputAuth.isValidEmail(e))
+                    throw new InputMismatchException("Invalid email format! Must contain '@' and a domain.");
+                this.email = e;
                 break;
-            }catch(InputMismatchException e){
+            } catch (InputMismatchException e) {
                 System.out.println(e.getMessage());
             }
         }
 
-        while(true){
-            try{
+        while (true) {
+            try {
                 System.out.print("Enter Password: ");
-                String password = scan.nextLine();
-                if(!inputAuth.isValidPassword(password)){
-                    throw new InputMismatchException("Invalid password format! Try again. Must have at least 8 characters, including uppercase, lowercase, and a number.");
-                }
-                user.setPassword(password);
+                String p = scan.nextLine();
+                if (!inputAuth.isValidPassword(p))
+                    throw new InputMismatchException("Invalid password! Must be 8+ chars with upper, lower, digit, and special character.");
+                this.password = p;
                 break;
-            }catch(InputMismatchException e){
+            } catch (InputMismatchException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
 
-    public void choosePlanType(){
-        while(true){
-            try{
-                System.out.print("Enter a plan type (free/premium): ");
-                String type = scan.nextLine();
-    
-                if(!type.equals("free") && !type.equals("premium")){
-                    throw new InputMismatchException("Invalid plan type. Choose again!");
-                }
-                user.setSubscriptionType(type);
-                break;
-            }catch(InputMismatchException e){
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-
-    public void setUsername(){
+    public void setUsername() {
         System.out.print("Please enter a username: ");
-        String username = scan.nextLine();
-
-        user.setUsername(username);
+        this.username = scan.nextLine();
     }
 
-    public User getUser(){
-        return user;
+    public void choosePlanType() {
+        while (true) {
+            try {
+                System.out.print("Enter a plan type (free/premium): ");
+                String type = scan.nextLine().trim().toLowerCase();
+                if (!type.equals("free") && !type.equals("premium"))
+                    throw new InputMismatchException("Invalid plan type. Choose again!");
+
+                if (type.equals("free")) {
+                    this.user = new FreeUser(username, email, password);
+                } else {
+                    this.user = new PremiumUser(username, email, password);
+                }
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
+
+    public User getUser() { return user; }
 }
