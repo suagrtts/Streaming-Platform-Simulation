@@ -3,7 +3,7 @@ package user;
 import admin.WatchHistory;
 import billing.Subscription;
 
-public class User implements UserInterface{
+public class User implements UserInterface {
     private String username;
     private String email;
     private String password;
@@ -11,86 +11,64 @@ public class User implements UserInterface{
     private WatchHistory watchHistory;
     private Subscription subscription;
 
-    public User(String username){
-       this.username = username;
-    }
-    public User() {
-        // Default no-arg constructor
+    public User(String username) {
+        this.username = username;
         this.subscriptionType = "free";
+        this.watchHistory = new WatchHistory(username);
+    }
+
+    public User() {
+        this.subscriptionType = "free";
+        this.watchHistory = new WatchHistory();
     }
 
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.subscriptionType = "free"; // default
+        this.subscriptionType = "free";
+        this.watchHistory = new WatchHistory(username);
     }
 
     @Override
-    public void setUsername(String username){
-        this.username = username;
-    }
+    public void setUsername(String username) { this.username = username; }
 
     @Override
-    public String getUsername(){
-        return username;
-    }
+    public String getUsername() { return username; }
 
     @Override
-    public void setEmail(String email){
-        this.email = email;
-    }
+    public void setEmail(String email) { this.email = email; }
 
     @Override
-    public String getEmail(){
-        return email;
-    }
+    public String getEmail() { return email; }
 
     @Override
-    public void setPassword(String password){
-        this.password = password;
-    }
+    public void setPassword(String password) { this.password = password; }
 
     @Override
-    public String getPassword(){
-        return password;
-    }
+    public String getPassword() { return password; }
 
     @Override
-    public void setSubscriptionType(String subscriptionType){
-        this.subscriptionType = subscriptionType;
-    }
+    public void setSubscriptionType(String subscriptionType) { this.subscriptionType = subscriptionType; }
 
     @Override
-    public String getSubscriptionType(){
-        return subscriptionType;
-    }
+    public String getSubscriptionType() { return subscriptionType; }
 
     @Override
-    public void setWatchHistory(WatchHistory watchHistory){
-        this.watchHistory = watchHistory;
-    }
+    public void setWatchHistory(WatchHistory watchHistory) { this.watchHistory = watchHistory; }
 
     @Override
-    public WatchHistory getWatchHistory(){
-        return watchHistory;
-    }
+    public WatchHistory getWatchHistory() { return watchHistory; }
 
-    public void setSubscription(Subscription subscription){
-        this.subscription = subscription;
-    }
+    public void setSubscription(Subscription subscription) { this.subscription = subscription; }
 
-    public Subscription getSubscription(){
-        return subscription;
-    }
+    public Subscription getSubscription() { return subscription; }
 
     @Override
-    public String getAccessLevel(){
-        return "User Access: Basic access to the platform.";
-    }
+    public String getAccessLevel() { return "User Access: Basic access to the platform."; }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "User{" +
                 "username='" + username + '\'' +
                 ", email='" + email + '\'' +
