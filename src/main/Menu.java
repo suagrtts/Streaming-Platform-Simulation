@@ -54,18 +54,14 @@ public class Menu {
             User logged = auth.authenticate(username, password);
             if (logged == null) {
                 System.out.println("Login failed. Exiting.");
-<<<<<<< HEAD
-                return; 
-=======
                 showMenu();
->>>>>>> f4ab076bac72023fbf12540d7e7dd34cf5c78e75
             }
             this.user = logged;
             this.user.setWatchHistory(history);
 
         } else {
             System.out.println("Invalid choice. Exiting.");
-            return;
+            showMenu();
         }
 
         platform.setCurrentUser(user.getUsername());
