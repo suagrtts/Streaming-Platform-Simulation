@@ -28,6 +28,7 @@ public class Menu {
         Authentication auth = new Authentication(platform);
 
         System.out.println("1. Register");
+        System.out.println("2. Login");
         System.out.print("Choose: ");
         String choice = scan.nextLine().trim();
 
@@ -53,7 +54,7 @@ public class Menu {
             User logged = auth.authenticate(username, password);
             if (logged == null) {
                 System.out.println("Login failed. Exiting.");
-                return;
+                showMenu();
             }
             this.user = logged;
             this.user.setWatchHistory(history);
@@ -106,7 +107,7 @@ public class Menu {
                 case 5 -> displayWatchHistory();
                 case 6 -> {
                     System.out.println("Logged out. Goodbye!");
-                    return;
+                    showMenu();
                 }
             }
 
