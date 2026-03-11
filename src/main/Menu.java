@@ -54,7 +54,7 @@ public class Menu {
             User logged = auth.authenticate(username, password);
             if (logged == null) {
                 System.out.println("Login failed. Exiting.");
-                return;
+                return; 
             }
             this.user = logged;
             this.user.setWatchHistory(history);
@@ -107,7 +107,7 @@ public class Menu {
                 case 5 -> displayWatchHistory();
                 case 6 -> {
                     System.out.println("Logged out. Goodbye!");
-                    return;
+                    showMenu();
                 }
             }
 
