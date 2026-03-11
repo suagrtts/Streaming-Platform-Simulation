@@ -1,9 +1,11 @@
 package platform;
 
 import user.User;
+import main.Menu;
 
 public class Authentication {
     private final Platform platform;
+    private Menu menu = new Menu();
 
     public Authentication(Platform platform) {
         this.platform = platform;
@@ -19,7 +21,7 @@ public class Authentication {
 
         if (user == null) {
             System.out.println("User not found.");
-            return null;
+            menu.showMenu();
         }
 
         if (user.getPassword() != null && user.getPassword().equals(password)) {
