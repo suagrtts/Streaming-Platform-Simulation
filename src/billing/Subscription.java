@@ -3,7 +3,7 @@ package billing;
 public abstract class Subscription {
 
     private String subscriberName;
-    private double monthlyCost;
+    private final double monthlyCost;
     private boolean isActive;
 
     public Subscription(String subscriberName, double monthlyCost) {

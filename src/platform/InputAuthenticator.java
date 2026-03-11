@@ -8,12 +8,11 @@ public class InputAuthenticator{
         Pattern.CASE_INSENSITIVE
     );
 
-    public final Pattern PASSWORDPattern = Pattern.compile(
+    public final Pattern PASSWORD_PATTERN = Pattern.compile(
         "^(?=.*[a-z])" +      // at least one lowercase
         "(?=.*[A-Z])" +       // at least one uppercase
         "(?=.*\\d)" +         // at least one digit
-        "(?=.*[@$!%*?&])" +   // at least one special char
-        "[A-Za-z\\d@$!%*?&]{8,}$" // minimum 8 characters
+        "[A-Za-z\\d@$!%*?&]{8,}$" // minimum 8 characters (special char optional)
     );
 
     public boolean isValidEmail(String email){
@@ -28,7 +27,7 @@ public class InputAuthenticator{
         if(password == null)
             return false;
 
-        Matcher matcher = PASSWORDPattern.matcher(password);
+        Matcher matcher = PASSWORD_PATTERN.matcher(password);
         return matcher.matches();
     }
 }

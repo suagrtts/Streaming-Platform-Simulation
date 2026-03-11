@@ -20,7 +20,7 @@ public class Platform {
         this.currentUser = username;
     }
 
-    public void setCurrentSubsription(String subscription){
+    public void setCurrentSubscription(String subscription){
         this.currentSubscription = subscription;
     }
 

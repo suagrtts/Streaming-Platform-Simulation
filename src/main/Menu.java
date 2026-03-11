@@ -29,8 +29,11 @@ public class Menu {
 
         registration.choosePlanType();
         
+        // Store the user in the platform for persistence
+        platform.addUser(this.user);
+        
         platform.setCurrentUser(user.getUsername());
-        platform.setCurrentSubsription(user.getSubscriptionType());
+        platform.setCurrentSubscription(user.getSubscriptionType());
 
         menuOptions();
     }
